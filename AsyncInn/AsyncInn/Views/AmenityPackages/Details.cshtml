@@ -1,0 +1,99 @@
+﻿@model AsyncInn.Models.AmenityPackage
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>AmenityPackage</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AC)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OceanView)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OceanView)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MountainView)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MountainView)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Minibar)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Minibar)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PrivateBeach)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PrivateBeach)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Hottub)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Hottub)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Penthouse)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Penthouse)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Valet)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Valet)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ContinentalBreakfast)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ContinentalBreakfast)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Coffee)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Coffee)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AmenityPackageId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>
