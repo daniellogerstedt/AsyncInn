@@ -16,9 +16,15 @@ namespace AsyncInn.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<RoomLocationAmenities>().HasKey(rla => new { rla.Location, rla.Amenities });
         }
 
-        // TODO: Create Tables
+        // Database Tables.
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<AmenityPackage> AmenityPackages { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<RoomLocation> RoomLocations { get; set; }
+        public DbSet<RoomLocationAmenities> RoomLocationAmenities { get; set; }
+
     }
 }
