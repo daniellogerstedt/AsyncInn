@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class LocationsController : Controller
     {
-        private readonly AsyncInnDBContext _context;
+        private readonly ILocationManager _context;
 
-        public LocationsController(AsyncInnDBContext context)
+        public LocationsController(ILocationManager context)
         {
             _context = context;
         }
@@ -22,19 +23,13 @@ namespace AsyncInn.Controllers
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Locations.ToListAsync());
+            return View(await _context.GetLocations());
         }
 
         // GET: Locations/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var location = await _context.Locations
-                .FirstOrDefaultAsync(m => m.LocationId == id);
+            var location = await _context.GetLocation(id);
             if (location == null)
             {
                 return NotFound();
@@ -58,22 +53,16 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(location);
-                await _context.SaveChangesAsync();
+                await _context.CreateLocation(location);
                 return RedirectToAction(nameof(Index));
             }
             return View(location);
         }
 
         // GET: Locations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var location = await _context.Locations.FindAsync(id);
+            var location = await _context.GetLocation(id);
             if (location == null)
             {
                 return NotFound();
@@ -97,8 +86,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    _context.Update(location);
-                    await _context.SaveChangesAsync();
+                    _context.UpdateLocation(id, location);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +105,9 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Locations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var location = await _context.Locations
-                .FirstOrDefaultAsync(m => m.LocationId == id);
+            var location = await _context.GetLocation(id);
             if (location == null)
             {
                 return NotFound();
@@ -139,15 +121,16 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
-            _context.Locations.Remove(location);
-            await _context.SaveChangesAsync();
+            var location = await _context.GetLocation(id);
+            _context.DeleteLocation(location);
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationExists(int id)
         {
-            return _context.Locations.Any(e => e.LocationId == id);
+            var location = _context.GetLocation(id);
+            if (location != null) return true;
+            return false;
         }
     }
 }

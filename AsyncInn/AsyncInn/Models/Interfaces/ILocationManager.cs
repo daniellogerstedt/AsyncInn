@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Interfaces
 {
-    interface ILocationManager
+    public interface ILocationManager
     {
         Task CreateLocation(Location location);
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Interfaces
 {
-    interface IRoomLocationManager
+    public interface IRoomLocationManager
     {
         Task CreateRoomLocation(RoomLocation roomLocation);
 

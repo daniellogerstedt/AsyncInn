@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Interfaces
 {
-    interface IRoomLocationAmenitiesManager
+    public interface IRoomLocationAmenitiesManager
     {
         Task CreateRoomLocationAmenity(RoomLocationAmenities roomLocationAmenities);
 

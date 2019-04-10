@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models.Interfaces
 {
-    interface IAmenityPackageManager
+    public interface IAmenityPackageManager
     {
         Task CreateAmenityPackage(AmenityPackage amenityPackage);
 

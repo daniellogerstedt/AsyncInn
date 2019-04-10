@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class AmenityPackagesController : Controller
     {
-        private readonly AsyncInnDBContext _context;
+        private readonly IAmenityPackageManager _context;
 
-        public AmenityPackagesController(AsyncInnDBContext context)
+        public AmenityPackagesController(IAmenityPackageManager context)
         {
             _context = context;
         }
@@ -22,19 +23,13 @@ namespace AsyncInn.Controllers
         // GET: AmenityPackages
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AmenityPackages.ToListAsync());
+            return View(await _context.GetAmenityPackages());
         }
 
         // GET: AmenityPackages/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenityPackage = await _context.AmenityPackages
-                .FirstOrDefaultAsync(m => m.AmenityPackageId == id);
+            var amenityPackage = await _context.GetAmenityPackage(id);
             if (amenityPackage == null)
             {
                 return NotFound();
@@ -58,22 +53,16 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(amenityPackage);
-                await _context.SaveChangesAsync();
+                await _context.CreateAmenityPackage(amenityPackage);
                 return RedirectToAction(nameof(Index));
             }
             return View(amenityPackage);
         }
 
         // GET: AmenityPackages/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenityPackage = await _context.AmenityPackages.FindAsync(id);
+            var amenityPackage = await _context.GetAmenityPackage(id);
             if (amenityPackage == null)
             {
                 return NotFound();
@@ -97,8 +86,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    _context.Update(amenityPackage);
-                    await _context.SaveChangesAsync();
+                    _context.UpdateAmenityPackage(id, amenityPackage);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +105,9 @@ namespace AsyncInn.Controllers
         }
 
         // GET: AmenityPackages/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenityPackage = await _context.AmenityPackages
-                .FirstOrDefaultAsync(m => m.AmenityPackageId == id);
+            var amenityPackage = await _context.GetAmenityPackage(id);
             if (amenityPackage == null)
             {
                 return NotFound();
@@ -139,15 +121,16 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var amenityPackage = await _context.AmenityPackages.FindAsync(id);
-            _context.AmenityPackages.Remove(amenityPackage);
-            await _context.SaveChangesAsync();
+            var amenityPackage = await _context.GetAmenityPackage(id);
+            _context.DeleteAmenityPackage(amenityPackage);
             return RedirectToAction(nameof(Index));
         }
 
         private bool AmenityPackageExists(int id)
         {
-            return _context.AmenityPackages.Any(e => e.AmenityPackageId == id);
+            var amenityPackage = _context.GetAmenityPackage(id);
+            if (amenityPackage != null) return true;
+            return false;
         }
     }
 }

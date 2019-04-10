@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AsyncInn.Data;
+using AsyncInn.Models.Services;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn
 {
@@ -28,6 +30,9 @@ namespace AsyncInn
             services.AddMvc();
             services.AddDbContext<AsyncInnDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IRoomManager, RoomService>();
+            services.AddScoped<ILocationManager, LocationService>();
+            services.AddScoped<IAmenityPackageManager, AmenityPackageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
