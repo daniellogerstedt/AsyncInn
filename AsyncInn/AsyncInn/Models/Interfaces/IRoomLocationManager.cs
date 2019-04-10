@@ -13,8 +13,8 @@ namespace AsyncInn.Models.Interfaces
 
         void DeleteRoomLocation(RoomLocation roomLocation);
 
-        Task<Room> GetRoomLocation(int id);
+        Task<RoomLocation> GetRoomLocation(int id);
 
-        Task<List<Room>> GetRoomLocations();
+        Task<List<RoomLocation>> GetRoomLocations();
     }
 }
