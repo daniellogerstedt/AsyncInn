@@ -41,7 +41,7 @@ namespace AsyncInn.Models.Services
 
         public void UpdateAmenityPackage(int id, AmenityPackage amenityPackage)
         {
-            throw new NotImplementedException();
+            _context.Update(amenityPackage);
         }
     }
 }
