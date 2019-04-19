@@ -7,6 +7,8 @@ A database management system for a hotel chain called AsyncInn. Contains scaffol
 
 ### Getting Started
 
+Deployed Site: https://dlogerasyncinn.azurewebsites.net/
+
 ##### Clone this repository to your local machine.
 
 $ git clone https://github.com/daniellogerstedt/AsyncInn.git

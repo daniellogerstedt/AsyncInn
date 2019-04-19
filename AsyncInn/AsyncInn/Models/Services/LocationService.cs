@@ -41,7 +41,7 @@ namespace AsyncInn.Models.Services
 
         public void UpdateLocation(int id, Location location)
         {
-            throw new NotImplementedException();
+            _context.Update(location);
         }
     }
 }
